@@ -1,0 +1,33 @@
+name: CI Pipeline
+
+on:
+  schedule:
+    - cron: "0 13 * * 5" 
+  workflow_dispatch:  
+
+  jobs:
+    run-kaspa-buy:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.x'
+
+        - name: Install dependencies
+          run: pip install requests
+
+        - name: Run Kaspa Buy Script
+          run: python -c "from buys import kaspa_buy; kaspa_buy()"
+
+        - name: Commit and push CSV
+          run: |
+            git config --global user.name "github-actions"
+            git config --global user.email "github-actions@github.com"
+            git add kaspa_buys.csv
+            git commit -m "Auto-update kaspa_buys.csv"
+            git push
