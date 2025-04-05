@@ -1,0 +1,65 @@
+name: Run Functions Weekly
+
+on:
+  schedule:
+    - cron: '0 0 * * FRI'
+    - cron: '0 0 * * SAT'
+
+jobs:
+  run-kaspa-buy:
+    runs-on: ubuntu-latest
+    if: github.event.schedule.cron == '0 0 * * FRI'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # or other dependencies like requests
+
+      - name: Run kaspa_buy function
+        run: |
+          python buy_kaspa.py
+
+      - name: Commit and push the updated CSV
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add kaspa_buys.csv
+          git commit -m "Update kaspa_buys.csv after running kaspa_buy function"
+          git push
+
+  run-other-buy:
+    runs-on: ubuntu-latest
+    if: github.event.schedule.cron == '0 0 * * SAT'  # Run only on Saturdays
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # or other dependencies like requests
+
+      - name: Run other_buy function
+        run: |
+          python buy_bitcoin.py 
+
+      - name: Commit and push the updated CSV
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add other_buys.csv
+          git commit -m "Update other_buys.csv after running other_buy function"
+          git push
