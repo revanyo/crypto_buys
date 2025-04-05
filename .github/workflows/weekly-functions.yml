@@ -52,7 +52,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run other_buy function
+      - name: Run bitcoin_buy function
         run: |
           python buy_bitcoin.py 
 
@@ -60,6 +60,6 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add other_buys.csv
-          git commit -m "Update other_buys.csv after running other_buy function"
+          git add bitcoin_buys.csv
+          git commit -m "Update bitcoin_buys.csv after running bitcoin_buy function"
           git push
