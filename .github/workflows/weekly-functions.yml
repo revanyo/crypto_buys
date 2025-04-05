@@ -4,12 +4,11 @@ on:
   schedule:
     - cron: '12 0 * * FRI'
     - cron: '51 10 * * SAT'
-  workflow_dispatch:
 
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' && github.event.schedule.cron == '51 10 * * SAT' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' && github.event.schedule.cron == '51 10 * * SAT'
 
 
     steps:
