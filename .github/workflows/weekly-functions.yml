@@ -2,13 +2,13 @@ name: Run Functions Weekly
 
 on:
   schedule:
-    - cron: '0 0 * * FRI'
-    - cron: '0 0 * * SAT'
+    - cron: '12 0 * * FRI'
+    - cron: '51 10 * * SAT'
 
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '0 0 * * FRI'
+    if: github.event.schedule.cron == '51 10 * * SAT'
 
     steps:
       - name: Checkout repository
@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt  # or other dependencies like requests
+          pip install -r requirements.txt
 
       - name: Run kaspa_buy function
         run: |
@@ -37,7 +37,7 @@ jobs:
 
   run-other-buy:
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '0 0 * * SAT'  # Run only on Saturdays
+    if: github.event.schedule.cron == '12 0 * * FRI'
 
     steps:
       - name: Checkout repository
@@ -50,7 +50,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt  # or other dependencies like requests
+          pip install -r requirements.txt
 
       - name: Run other_buy function
         run: |
