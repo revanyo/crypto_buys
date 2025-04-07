@@ -8,7 +8,7 @@ on:
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '51 10 * * SAT'
+    if: github.event.schedule.cron == '51 10 * * SAT' 
 
 
     steps:

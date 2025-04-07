@@ -1,4 +1,12 @@
 {
-    "coins": 206860,
-    "avergae_buy_price": 0.1453
+    "bitcoin": 
+        {
+        "coins": 0.0005,
+        "avergae_buy_price": 80000
+        },
+    "kaspa": 
+        {
+        "coins": 206860,
+        "avergae_buy_price": 0.1453
+        }
 }
