@@ -13,12 +13,8 @@ def calculate_total_average(coin):
     new_price = df['Price'].mean()
 
     weighted_avg = ((old_average_price * old_coins) + (new_price * new_coins)) / (old_coins + new_coins)
-    total_coins = old_coins+new_coins
-
-    print(f'Sum of new coins: {new_coins}')
 
     print(f'New Average Price: {weighted_avg}')
-    print(f'Total coins owned: {total_coins}')
 
 def calculate_total_coins_owned(coin):
     with open('average.json') as f:
@@ -32,3 +28,9 @@ def calculate_total_coins_owned(coin):
     total_coins = old_coins+new_coins
 
     print(f'Total coins owned: {total_coins}')
+
+def calulate_new_total_coins(coin):
+    df = pd.read_csv(f'{coin}_buys.csv')
+    print(f'New coins bought: {df["Coins"].sum()}')
+
+calculate_total_average('kaspa')
