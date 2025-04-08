@@ -2,13 +2,14 @@ name: Run Functions Weekly
 
 on:
   schedule:
-    - cron: '12 0 * * FRI'
-    - cron: '51 10 * * SAT'
+    - cron: '39 23 * * SAT' #Bitcoin
+    - cron: '51 10 * * SAT' #Kaspa
+    - cron: '08 11 * * TUE' #Kaspa
 
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '51 10 * * SAT' 
+    if: github.event.schedule.cron == '51 10 * * SAT' || github.event.schedule.cron == '08 11 * * TUE'
 
 
     steps:
