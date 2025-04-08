@@ -33,7 +33,7 @@ jobs:
         run: |
           CURRENT_DATE=$(date +'%Y-%m-%d')
           git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.email "50283360+revanyo@users.noreply.github.com"
           git add kaspa_buys.csv
           git commit -m "Update kaspa_buys.csv after running on $CURRENT_DATE"
           git push
@@ -63,7 +63,7 @@ jobs:
         run: |
           CURRENT_DATE=$(date +'%Y-%m-%d')
           git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.email "50283360+revanyo@users.noreply.github.com"
           git add bitcoin_buys.csv
           git commit -m "Update bitcoin_buys.csv after running on $CURRENT_DATE"
           git push
