@@ -33,5 +33,5 @@ def calulate_new_total_coins(coin):
     df = pd.read_csv(f'{coin}_buys.csv')
     print(f'New coins bought: {df["Coins"].sum()}')
 
-calculate_total_average('kaspa')
+calulate_new_total_coins('bitcoin')
 
