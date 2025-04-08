@@ -31,7 +31,14 @@ def calculate_total_coins_owned(coin):
 
 def calulate_new_total_coins(coin):
     df = pd.read_csv(f'{coin}_buys.csv')
-    print(f'New coins bought: {df["Coins"].sum()}')
+    print(f'New coins of {coin} bought: {df["Coins"].sum()}')
 
-calulate_new_total_coins('bitcoin')
+def calulate_new_average(coin):
+    df = pd.read_csv(f'{coin}_buys.csv')
+    new_average = df['Price'].mean()
+
+    print(f'Average price for new {coin} bought: {new_average}')
+
+calulate_new_average('kaspa')
+
 
