@@ -34,3 +34,4 @@ def calulate_new_total_coins(coin):
     print(f'New coins bought: {df["Coins"].sum()}')
 
 calculate_total_average('kaspa')
+
