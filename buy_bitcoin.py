@@ -20,4 +20,4 @@ def bitcoin_buy():
         writer = csv.writer(file)
         writer.writerow(new_row)
 
-bitcoin_buy
+bitcoin_buy()

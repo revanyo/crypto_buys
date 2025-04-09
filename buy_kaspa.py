@@ -20,4 +20,5 @@ def kaspa_buy():
     with open("kaspa_buys.csv", mode="a", newline="") as file:
         writer = csv.writer(file)
         writer.writerow(new_row)
+        
 kaspa_buy()
