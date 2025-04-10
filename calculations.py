@@ -74,4 +74,6 @@ def calulate_profit(coin):
     current_price = get_current_price(coin)
 
     current_value = coins * current_price
-    return current_value - cost
+    profit = round((current_value - cost),2)
+    percentage = round((profit/cost*100),2)
+    return f'{profit} Dollars, {percentage}%'
