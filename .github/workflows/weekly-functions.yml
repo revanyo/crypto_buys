@@ -5,11 +5,12 @@ on:
     - cron: '39 23 * * SAT' #Bitcoin
     - cron: '51 10 * * SAT' #Kaspa
     - cron: '08 11 * * TUE' #Kaspa
+    - cron: '13 10 * * THU' #Kaspa
 
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '51 10 * * SAT' || github.event.schedule.cron == '08 11 * * TUE'
+    if: github.event.schedule.cron == '51 10 * * SAT' || github.event.schedule.cron == '08 11 * * TUE' || github.event.schedule.cron == '13 10 * * THU'
 
 
     steps:

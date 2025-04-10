@@ -75,6 +75,3 @@ def calulate_profit(coin):
 
     current_value = coins * current_price
     return current_value - cost
-
-
-calulate_profit("bitcoin")
