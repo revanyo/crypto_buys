@@ -2,7 +2,7 @@ name: Bitcoin Buy One
 
 on:
   schedule:
-    - cron: '39 17 * * SAT'
+    - cron: '39 5 * * SAT'
 
 jobs:
   run-bitcoin-buy:
