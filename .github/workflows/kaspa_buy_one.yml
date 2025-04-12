@@ -1,0 +1,34 @@
+name: Kaspa Buy One
+
+on:
+  schedule:
+    - cron: '51 16 * * SAT'
+
+jobs:
+  run-kaspa-buy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run kaspa_buy function
+        run: |
+          python buy_kaspa.py
+
+      - name: Commit and push the updated CSV
+        run: |
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          git config --global user.name "github-actions"
+          git config --global user.email "50283360+revanyo@users.noreply.github.com"
+          git add kaspa_buys.csv
+          git commit -m "Update kaspa_buys.csv after running on $CURRENT_DATE"
+          git push

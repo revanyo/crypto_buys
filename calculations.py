@@ -77,3 +77,5 @@ def calulate_profit(coin):
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
     return f'{profit} Dollars, {percentage}%'
+
+print(calulate_profit("kaspa"))
