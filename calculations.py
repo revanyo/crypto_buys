@@ -18,7 +18,7 @@ def calculate_total_average(coin):
         old_coins + new_coins
     )
 
-    print(f"New Average Price: {weighted_avg}")
+    return f"New Average Price: {weighted_avg}"
 
 
 def calculate_total_coins_owned(coin):

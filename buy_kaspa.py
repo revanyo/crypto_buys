@@ -10,7 +10,7 @@ def kaspa_buy():
     'Accept': 'application/json'
     }
 
-    last_price = requests.request("GET", url, headers=headers).json()['result']['KASUSD']['c'][0]
+    last_price = round(float(requests.request("GET", url, headers=headers).json()['result']['KASUSD']['c'][0]), 5)
     coins_bought = round(50 / float(last_price), 8)
 
     now = datetime.datetime.now()
