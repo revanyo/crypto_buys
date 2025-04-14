@@ -16,8 +16,8 @@ def bitcoin_buy():
     buy_date = now.strftime("%m/%d/%Y")
     new_row = [buy_date,coins_bought,last_price,50]
 
-    with open("bitcoin_buys.csv", mode="a", newline="") as file:
-        writer = csv.writer(file)
+    with open("bitcoin_buys.csv", mode="a", newline='') as file:
+        writer = csv.writer(file, lineterminator='\n')  # explicitly set line ending
         writer.writerow(new_row)
 
 bitcoin_buy()
