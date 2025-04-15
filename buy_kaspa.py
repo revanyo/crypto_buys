@@ -1,3 +1,4 @@
+import sys
 from openpyxl import load_workbook
 import datetime
 import pandas as pd
@@ -8,9 +9,12 @@ from utils.utils import get_current_balance
 def kaspa_buy():
     filename = "data/kaspa_buys.xlsx"
     df = pd.read_excel(filename)
-    coins_owned = df["coins"].sum()
+    coins_owned = df["Coins"].sum()
 
-    coins_bought = get_current_balance("kaspa") - coins_owned
+    coins_bought = (float(get_current_balance("kaspa")) - 5661.903) - coins_owned
+    if(coins_bought < 1):
+        sys.exit()
+
     last_price = 50 / coins_bought
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
