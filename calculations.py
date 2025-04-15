@@ -4,7 +4,7 @@ import requests
 
 
 def calculate_total_average(coin):
-    with open("average.json") as f:
+    with open("data/average.json") as f:
         data = json.load(f)[coin]
         old_coins = data["coins"]
         old_average_price = data["avergae_buy_price"]
@@ -22,7 +22,7 @@ def calculate_total_average(coin):
 
 
 def calculate_total_coins_owned(coin):
-    with open("average.json") as f:
+    with open("data/average.json") as f:
         data = json.load(f)[coin]
         old_coins = data["coins"]
 
