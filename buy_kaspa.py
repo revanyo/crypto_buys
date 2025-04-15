@@ -1,33 +1,24 @@
 from openpyxl import load_workbook
 import datetime
-import requests
+import pandas as pd
+
+from utils.utils import get_current_balance
 
 
 def kaspa_buy():
-    url = "https://api.kraken.com/0/public/Ticker?pair=KASUSD"
+    filename = "data/kaspa_buys.xlsx"
+    df = pd.read_excel(filename)
+    coins_owned = df["coins"].sum()
 
-    headers = {"Accept": "application/json"}
-
-    last_price = round(
-        float(
-            requests.request("GET", url, headers=headers).json()["result"]["KASUSD"][
-                "c"
-            ][0]
-        ),
-        5,
-    )
-    coins_bought = round(50 / float(last_price), 8)
-
+    coins_bought = get_current_balance("kaspa") - coins_owned
+    last_price = 50 / coins_bought
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
-    new_row = [buy_date, coins_bought, last_price, 50]
 
-    filename = "data/kaspa_buys.xlsx"
+    new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 50}
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-    wb = load_workbook(filename)
-    ws = wb.active
-    ws.append(new_row)
-    wb.save(filename)
+    df.to_excel(filename, index=False)
 
 
 kaspa_buy()
