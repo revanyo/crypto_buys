@@ -78,4 +78,4 @@ def calulate_profit(coin):
     percentage = round((profit/cost*100),2)
     return f'{profit} Dollars, {percentage}%'
 
-print(calulate_profit("kaspa"))
+print(calulate_new_total_coins("bitcoin"))

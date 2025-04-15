@@ -1,4 +1,4 @@
-import csv
+from openpyxl import load_workbook
 import datetime
 import requests
 
@@ -6,19 +6,28 @@ import requests
 def kaspa_buy():
     url = "https://api.kraken.com/0/public/Ticker?pair=KASUSD"
 
-    headers = {
-    'Accept': 'application/json'
-    }
+    headers = {"Accept": "application/json"}
 
-    last_price = round(float(requests.request("GET", url, headers=headers).json()['result']['KASUSD']['c'][0]), 5)
+    last_price = round(
+        float(
+            requests.request("GET", url, headers=headers).json()["result"]["KASUSD"][
+                "c"
+            ][0]
+        ),
+        5,
+    )
     coins_bought = round(50 / float(last_price), 8)
 
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
-    new_row = [buy_date,coins_bought,last_price,50]
+    new_row = [buy_date, coins_bought, last_price, 50]
 
-    with open("kaspa_buys.csv", mode="a", newline='') as file:
-        writer = csv.writer(file, lineterminator='\n')  # explicitly set line ending
-        writer.writerow(new_row)
+    filename = "data/kaspa_buys.xlsx"
+
+    wb = load_workbook(filename)
+    ws = wb.active
+    ws.append(new_row)
+    wb.save(filename)
+
 
 kaspa_buy()
