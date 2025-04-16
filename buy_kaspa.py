@@ -1,8 +1,6 @@
 import sys
-from openpyxl import load_workbook
 import datetime
 import pandas as pd
-
 from utils.utils import get_current_balance
 
 
