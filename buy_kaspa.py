@@ -10,7 +10,7 @@ def kaspa_buy():
     coins_owned = df["Coins"].sum()
 
     coins_bought = (float(get_current_balance("kaspa")) - 5661.903) - coins_owned
-    if(coins_bought < 1):
+    if(coins_bought < 10):
         sys.exit()
 
     last_price = 50 / coins_bought
