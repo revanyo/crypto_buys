@@ -1,6 +1,7 @@
 name: Kaspa Buy Two
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '08 17 * * TUE'
 

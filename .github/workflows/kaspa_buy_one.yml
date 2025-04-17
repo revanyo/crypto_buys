@@ -1,6 +1,7 @@
 name: Kaspa Buy One
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '51 16 * * SAT'
 

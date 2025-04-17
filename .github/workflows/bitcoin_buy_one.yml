@@ -1,6 +1,7 @@
 name: Bitcoin Buy One
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '39 5 * * SUN'
 
