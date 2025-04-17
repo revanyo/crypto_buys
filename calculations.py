@@ -33,22 +33,22 @@ def calculate_total_coins_owned(coin):
 
     total_coins = old_coins + new_coins
 
-    print(f"Total coins owned: {total_coins}")
+    return f"Total coins owned: {total_coins}"
 
 
-def calulate_new_total_coins(coin):
+def calculate_new_total_coins(coin):
     filename = f"data/{coin}_buys.xlsx"
     df = pd.read_excel(filename)
     coins = df["Coins"].sum()
     return coins
 
 
-def calulate_new_average(coin):
+def calculate_new_average(coin):
     filename = f"data/{coin}_buys.xlsx"
     df = pd.read_excel(filename)
     new_average = df["Price"].mean()
 
-    print(f"Average price for new {coin} bought: {new_average}")
+    return f"Average price for new {coin} bought: {new_average}"
 
 
 def get_current_price(coin):
@@ -73,7 +73,7 @@ def calculate_costs(coin):
 
 
 def calulate_profit(coin):
-    coins = calulate_new_total_coins(coin)
+    coins = calculate_new_total_coins(coin)
     cost = calculate_costs(coin)
     current_price = get_current_price(coin)
 
