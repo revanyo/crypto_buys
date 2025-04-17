@@ -1,12 +1,18 @@
 name: Kaspa Buy Three
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '13 16 * * THU'
 
 jobs:
   run-kaspa-buy:
     runs-on: ubuntu-latest
+    env:
+      CI: "true"
+      KRAKEN_API_KEY: ${{ secrets.KRAKEN_API_KEY }}
+      KRAKEN_API_SECRET: ${{ secrets.KRAKEN_API_SECRET }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -29,6 +35,6 @@ jobs:
           CURRENT_DATE=$(date +'%Y-%m-%d')
           git config --global user.name "github-actions"
           git config --global user.email "50283360+revanyo@users.noreply.github.com"
-          git add kaspa_buys.csv
-          git commit -m "Update kaspa_buys.csv after running on $CURRENT_DATE"
+          git add data/kaspa_buys.xlsx
+          git commit -m "Update kaspa_buys.xlsx after running on $CURRENT_DATE"
           git push

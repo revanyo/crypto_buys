@@ -15,10 +15,10 @@ def get_kraken_signature(urlpath, data, secret):
     return sigdigest.decode()
 
 def handle_kraken_auth(urlpath):
-    load_dotenv()
+    if os.getenv("CI") != "true":
+        load_dotenv()
     api_key = os.getenv("KRAKEN_API_KEY")
     api_sec = os.getenv("KRAKEN_API_SECRET")
-    urlpath = "/0/private/Balance"
     nonce = str(int(time.time() * 1000))
 
     payload = {
