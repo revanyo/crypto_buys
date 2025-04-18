@@ -1,3 +1,4 @@
+import time
 import requests
 from utils.kraken_auth import handle_kraken_auth
 
@@ -5,7 +6,12 @@ def get_current_balance(coin):
     coin = 'KAS' if coin.lower() == 'kaspa' else 'XXBT'
 
     urlpath = "/0/private/Balance"
-    api_key, payload, signature = handle_kraken_auth(urlpath)
+
+    payload = {
+        "nonce": str(int(time.time() * 1000))
+    }
+
+    api_key, signature = handle_kraken_auth(urlpath, payload)
     
     api_url = "https://api.kraken.com" + urlpath
 
