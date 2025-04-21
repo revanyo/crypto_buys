@@ -6,7 +6,7 @@ import pandas as pd
 def bitcoin_buy():
     filename = "data/bitcoin_buys.xlsx"
     df = pd.read_excel(filename)
-    coins_owned = df["coins"].sum()
+    coins_owned = df["Coins"].sum()
 
   
     coins_bought = (float(get_current_balance("bitcoin")) - 0.00119649) - coins_owned
