@@ -48,7 +48,7 @@ def calculate_new_average(coin):
     df = pd.read_excel(filename)
     new_average = df["Price"].mean()
 
-    return f"Average price for new {coin} bought: {new_average}"
+    return new_average
 
 
 def get_current_price(coin):
@@ -81,3 +81,14 @@ def calulate_profit(coin):
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
     return f'{profit} Dollars, {percentage}%'
+
+def calculate_total_profit(coin):
+    with open("data/average.json") as f:
+        data = json.load(f)[coin]
+        old_coins = data["coins"]
+        old_average_price = data["avergae_buy_price"]
+    cost_basis = (calculate_new_total_coins(coin)*calculate_new_average(coin)) + (old_coins*old_average_price)
+    market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
+    total_profit = market_value - cost_basis
+    percentage = round((total_profit / cost_basis) * 100, 2)
+    return f"Profit: ${round(total_profit, 2)}, ({percentage}%)"
