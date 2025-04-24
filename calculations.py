@@ -80,14 +80,14 @@ def calulate_profit(coin):
     current_value = coins * current_price
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
-    return f'{profit} Dollars, {percentage}%'
+    return f'Profit: ${profit}, ({percentage}%)'
 
 def calculate_total_profit(coin):
     with open("data/average.json") as f:
         data = json.load(f)[coin]
         old_coins = data["coins"]
         old_average_price = data["avergae_buy_price"]
-    cost_basis = (calculate_new_total_coins(coin)*calculate_new_average(coin)) + (old_coins*old_average_price)
+    cost_basis = (calculate_costs(coin)) + (old_coins*old_average_price)
     market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
