@@ -1,6 +1,28 @@
+from datetime import datetime
 import json
 import pandas as pd
 import requests
+
+def get_loan_amount():
+    # Hardcoded loan files
+    loan_files = ['data/loan_one.csv', 'data/loan_two.csv']
+
+    # Get the current date
+    current_date = datetime.today()
+
+    total_principal = 0
+
+    for loan_file in loan_files:
+        # Load the loan CSV file
+        df = pd.read_csv(loan_file)
+
+        # Find the next row with a date after today's date
+        next_row = df[df['Date'] > current_date.strftime('%B %d %Y')].iloc[0]
+        
+        # Add the principal of the next row to the total
+        total_principal += next_row['Principal']
+
+    return round(total_principal,2)
 
 
 def calculate_total_average(coin):
@@ -33,14 +55,14 @@ def calculate_total_coins_owned(coin):
 
     total_coins = old_coins + new_coins
 
-    return f"Total coins owned: {total_coins}"
+    return total_coins
 
 
 def calculate_new_total_coins(coin):
     filename = f"data/{coin}_buys.xlsx"
     df = pd.read_excel(filename)
     coins = df["Coins"].sum()
-    return coins
+    return float(coins)
 
 
 def calculate_new_average(coin):
@@ -92,3 +114,16 @@ def calculate_total_profit(coin):
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
     return f"Profit: ${round(total_profit, 2)}, ({percentage}%)"
+
+def calculate_portfolio_minus_loan(coin):
+    coins = calculate_total_coins_owned(coin)
+    loans=get_loan_amount()
+    market_value=coins*get_current_price(coin)
+    return market_value-loans
+    
+
+print(calulate_profit("kaspa"))
+print()
+print(calculate_total_profit("kaspa"))
+print()
+print(calculate_portfolio_minus_loan("kaspa"))
