@@ -8,9 +8,8 @@ def bitcoin_buy():
     df = pd.read_excel(filename)
     coins_owned = df["Coins"].sum()
 
-  
-    coins_bought = (float(get_current_balance("bitcoin"))) - coins_owned
-    if(coins_bought < .00001):
+    coins_bought = (float(get_current_balance("bitcoin"))) - (coins_owned - .0000311)
+    if abs(coins_bought) < 0.00001:
         sys.exit()
 
     last_price = 50 / coins_bought
