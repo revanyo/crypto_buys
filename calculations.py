@@ -102,6 +102,7 @@ def calulate_profit(coin):
     current_value = coins * current_price
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
+    print()
     return f'Profit: ${profit}, ({percentage}%)'
 
 def calculate_total_profit(coin):
@@ -113,17 +114,13 @@ def calculate_total_profit(coin):
     market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
-    return f"Profit: ${round(total_profit, 2)}, ({percentage}%)"
+    print()
+    return f"Total rofit: ${round(total_profit, 2)}, ({percentage}%)"
+    
 
 def calculate_portfolio_minus_loan(coin):
     coins = calculate_total_coins_owned(coin)
     loans=get_loan_amount()
     market_value=coins*get_current_price(coin)
+    print()
     return market_value-loans
-    
-
-print(calulate_profit("kaspa"))
-print()
-print(calculate_total_profit("kaspa"))
-print()
-print(calculate_portfolio_minus_loan("kaspa"))
