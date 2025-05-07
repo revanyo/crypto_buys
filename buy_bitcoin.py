@@ -17,6 +17,7 @@ def bitcoin_buy():
     buy_date = now.strftime("%m/%d/%Y")
 
     new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 50}
+    print(new_row)
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
     df.to_excel(filename, index=False)
