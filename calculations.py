@@ -85,8 +85,9 @@ def get_current_price(coin):
     last_price = requests.request("GET", url, headers=headers).json()["result"][pair][
         "c"
     ][0]
+    
     return float(last_price)
-
+    
 def calculate_costs(coin):
     filename = f"data/{coin}_buys.xlsx"
     df = pd.read_excel(filename)
@@ -115,12 +116,19 @@ def calculate_total_profit(coin):
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
     print()
-    return f"Total rofit: ${round(total_profit, 2)}, ({percentage}%)"
+    return f"Total profit: ${round(total_profit, 2)}, ({percentage}%)"
     
 
-def calculate_portfolio_minus_loan(coin):
-    coins = calculate_total_coins_owned(coin)
+def calculate_portfolio_minus_loan():
+    Kaspa_coins = calculate_total_coins_owned("kaspa")
+    bitcoin_coins = calculate_total_coins_owned("bitcoin")
     loans=get_loan_amount()
-    market_value=coins*get_current_price(coin)
+    kaspa_market_value=Kaspa_coins*get_current_price("kaspa")
+    bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
+    market_value = kaspa_market_value + bitcoin_market_value
     print()
     return market_value-loans
+
+# print(calulate_profit("kaspa"))
+# print(calculate_total_profit("kaspa"))
+# print(calculate_portfolio_minus_loan())

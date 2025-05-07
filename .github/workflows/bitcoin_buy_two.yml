@@ -1,9 +1,9 @@
-name: Bitcoin Buy One
+name: Bitcoin Buy Two
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 16 * * WED'
+    - cron: '10 18 * * WED'
 
 jobs:
   run-bitcoin-buy:
