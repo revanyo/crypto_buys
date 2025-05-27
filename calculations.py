@@ -36,7 +36,7 @@ def calculate_total_average(coin):
   
     new_coins = df["Coins"].sum()
     new_price = df["Price"].mean()
-
+   
     weighted_avg = ((old_average_price * old_coins) + (new_price * new_coins)) / (
         old_coins + new_coins
     )
@@ -85,7 +85,6 @@ def get_current_price(coin):
     last_price = requests.request("GET", url, headers=headers).json()["result"][pair][
         "c"
     ][0]
-    
     return float(last_price)
     
 def calculate_costs(coin):
@@ -104,7 +103,7 @@ def calulate_profit(coin):
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
     print()
-    return f'Profit: ${profit}, ({percentage}%)'
+    return f'Profit: ${profit}, ({percentage}%) --{coin}'
 
 def calculate_total_profit(coin):
     with open("data/average.json") as f:
@@ -116,7 +115,7 @@ def calculate_total_profit(coin):
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
     print()
-    return f"Total profit: ${round(total_profit, 2)}, ({percentage}%)"
+    return f"Total profit: ${round(total_profit, 2)}, ({percentage}%) --{coin}"
     
 
 def calculate_portfolio_minus_loan():
@@ -127,8 +126,10 @@ def calculate_portfolio_minus_loan():
     bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
     market_value = kaspa_market_value + bitcoin_market_value
     print()
-    return market_value-loans
+    return f'Total Portfolio Net Worth: {round(market_value,2)} - {loans} = {round(market_value-loans,2)}'
 
-# print(calulate_profit("kaspa"))
-# print(calculate_total_profit("kaspa"))
-# print(calculate_portfolio_minus_loan())
+print(calulate_profit("kaspa"))
+print(calculate_total_profit("kaspa"))
+print(calulate_profit("bitcoin"))
+print(calculate_total_profit("bitcoin"))
+print(calculate_portfolio_minus_loan())
