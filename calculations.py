@@ -22,7 +22,7 @@ def get_loan_amount():
         # Add the principal of the next row to the total
         total_principal += next_row['Principal']
 
-    return round(total_principal,2)
+    return round(total_principal,2) -4000
 
 
 def calculate_total_average(coin):
