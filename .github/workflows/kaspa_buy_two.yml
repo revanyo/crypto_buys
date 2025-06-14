@@ -28,7 +28,7 @@ jobs:
 
       - name: Run kaspa_buy function
         run: |
-          python buy_kaspa.py
+          python buy_kaspa_two.py
 
       - name: Commit and push the updated CSV
         run: |
