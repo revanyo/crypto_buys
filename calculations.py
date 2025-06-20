@@ -22,7 +22,7 @@ def get_loan_amount():
         # Add the principal of the next row to the total
         total_principal += next_row['Principal']
 
-    return round(total_principal,2) -4000
+    return round(total_principal,2) -5000
 
 
 def calculate_total_average(coin):
@@ -133,3 +133,4 @@ print(calculate_total_profit("kaspa"))
 print(calulate_profit("bitcoin"))
 print(calculate_total_profit("bitcoin"))
 print(calculate_portfolio_minus_loan())
+
