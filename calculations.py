@@ -3,6 +3,8 @@ import json
 import pandas as pd
 import requests
 
+from utils.utils import *
+
 def get_loan_amount():
     # Hardcoded loan files
     loan_files = ['data/loan_one.csv', 'data/loan_two.csv']
