@@ -3,8 +3,6 @@ import json
 import pandas as pd
 import requests
 
-from utils.utils import *
-
 def get_loan_amount():
     # Hardcoded loan files
     loan_files = ['data/loan_one.csv', 'data/loan_two.csv']
@@ -135,4 +133,3 @@ print(calculate_total_profit("kaspa"))
 print(calulate_profit("bitcoin"))
 print(calculate_total_profit("bitcoin"))
 print(calculate_portfolio_minus_loan())
-
