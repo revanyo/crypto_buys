@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 import time
 import requests
 from utils.kraken_auth import handle_kraken_auth
@@ -51,3 +52,23 @@ def get_allocated_balance(coin):
     strategies = [item for item in items if item['native_asset'] == 'BTC']
     allocated_amount = strategies[0]['amount_allocated']['total']['native']
     return allocated_amount
+
+def allocate_earn_funds():
+    urlpath = "/0/private/Earn/Allocate"
+    allocation_amount = get_current_balance('BTC')
+    payload = {
+        "nonce": str(int(time.time() * 1000)),
+        "amount": 1,
+        'strategy_id':'ESVDZB3-C3ZRV-JLKVFR'
+    }
+    api_key, signature = handle_kraken_auth(urlpath, payload)
+    
+    api_url = "https://api.kraken.com" + urlpath
+
+    headers = {
+        "API-Key": api_key,
+        "API-Sign": signature,
+        "User-Agent": "kraken-api-client"
+    }
+
+    requests.post(api_url, headers=headers, data=payload).json()

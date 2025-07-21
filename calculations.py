@@ -1,28 +1,29 @@
 from datetime import datetime
 import json
+from matplotlib.dates import relativedelta
 import pandas as pd
 import requests
+from data.loan_data import loan_one, loan_two
 
-def get_loan_amount():
-    # Hardcoded loan files
-    loan_files = ['data/loan_one.csv', 'data/loan_two.csv']
+def get_loan_amount(loan):
+    start_date = datetime.strptime(loan["start"], "%Y-%m-%d")
+    today = datetime.today()
 
-    # Get the current date
-    current_date = datetime.today()
+    delta = relativedelta(today, start_date)
+    months_paid = delta.years * 12 + delta.months
 
-    total_principal = 0
+    monthly_rate = loan["rate"] / 12 / 100
+    balance = loan["principal"]
 
-    for loan_file in loan_files:
-        # Load the loan CSV file
-        df = pd.read_csv(loan_file)
+    for _ in range(months_paid):
+        interest = balance * monthly_rate
+        principal_payment = loan["payment"] - interest
+        balance -= principal_payment
+        if balance <= 0:
+            balance = 0.0
+            break
 
-        # Find the next row with a date after today's date
-        next_row = df[df['Date'] > current_date.strftime('%B %d %Y')].iloc[0]
-        
-        # Add the principal of the next row to the total
-        total_principal += next_row['Principal']
-
-    return round(total_principal,2) -5000
+    return round(balance, 2)
 
 
 def calculate_total_average(coin):
@@ -121,7 +122,7 @@ def calculate_total_profit(coin):
 def calculate_portfolio_minus_loan():
     Kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
-    loans=get_loan_amount()
+    loans = get_loan_amount(loan_one) + get_loan_amount(loan_two)
     kaspa_market_value=Kaspa_coins*get_current_price("kaspa")
     bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
     market_value = kaspa_market_value + bitcoin_market_value
