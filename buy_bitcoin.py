@@ -1,6 +1,6 @@
 import datetime
 import sys
-from utils.utils import get_current_balance
+from utils.utils import allocate_earn_funds, get_current_balance
 import pandas as pd
 
 def bitcoin_buy():
@@ -23,3 +23,4 @@ def bitcoin_buy():
     df.to_excel(filename, index=False)
 
 bitcoin_buy()
+allocate_earn_funds()

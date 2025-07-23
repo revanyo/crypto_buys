@@ -1,5 +1,3 @@
-from datetime import datetime
-import json
 import time
 import requests
 from utils.kraken_auth import handle_kraken_auth
@@ -55,10 +53,10 @@ def get_allocated_balance(coin):
 
 def allocate_earn_funds():
     urlpath = "/0/private/Earn/Allocate"
-    allocation_amount = get_current_balance('BTC')
+    allocation_amount = get_current_balance('BTC') - float(get_allocated_balance('BTC'))
     payload = {
         "nonce": str(int(time.time() * 1000)),
-        "amount": 1,
+        "amount": allocation_amount,
         'strategy_id':'ESVDZB3-C3ZRV-JLKVFR'
     }
     api_key, signature = handle_kraken_auth(urlpath, payload)
