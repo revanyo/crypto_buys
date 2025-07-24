@@ -117,7 +117,15 @@ def calculate_total_profit(coin):
     percentage = round((total_profit / cost_basis) * 100, 2)
     print()
     return f"Total profit: ${round(total_profit, 2)}, ({percentage}%) --{coin}"
-    
+
+def calculate_allocation_percentage():
+    Kaspa_coins = calculate_total_coins_owned("kaspa")
+    bitcoin_coins = calculate_total_coins_owned("bitcoin")
+    kaspa_market_value=Kaspa_coins*get_current_price("kaspa")
+    bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
+    market_value = kaspa_market_value + bitcoin_market_value
+    kaspa_allocation_percent = kaspa_market_value/market_value
+    return f'Portfolio Allocation: Kaspa: {round((kaspa_allocation_percent*100),2)}%, Bitcoin: {round(((1-kaspa_allocation_percent)*100),2)}%'
 
 def calculate_portfolio_minus_loan():
     Kaspa_coins = calculate_total_coins_owned("kaspa")
