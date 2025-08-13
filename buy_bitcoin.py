@@ -8,6 +8,8 @@ def bitcoin_buy():
     df = pd.read_excel(filename)
     coins_owned = df["Coins"].sum()
 
+    curr = (float(get_current_balance("bitcoin")))
+    print(curr)
     coins_bought = (float(get_current_balance("bitcoin"))) - (coins_owned - .0000311)
     print(f'Coins Bought: {coins_bought}')
     if abs(coins_bought) < 0.00001:
