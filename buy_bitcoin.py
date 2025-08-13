@@ -9,6 +9,7 @@ def bitcoin_buy():
     coins_owned = df["Coins"].sum()
 
     coins_bought = (float(get_current_balance("bitcoin"))) - (coins_owned - .0000311)
+    print(f'Coins Bought: {coins_bought}')
     if abs(coins_bought) < 0.00001:
         print("Exiting due to no balance")
         sys.exit()
