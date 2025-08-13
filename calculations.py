@@ -104,7 +104,7 @@ def calulate_profit(coin):
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
     print()
-    return f'Profit: ${profit}, ({percentage}%) --{coin}'
+    return f'Profit: ${profit}, ({percentage}%) --{coin} Price: ${round(current_price,5)}'
 
 def calculate_total_profit(coin):
     with open("data/average.json") as f:
@@ -142,3 +142,5 @@ print(calculate_total_profit("kaspa"))
 print(calulate_profit("bitcoin"))
 print(calculate_total_profit("bitcoin"))
 print(calculate_portfolio_minus_loan())
+
+print(calculate_allocation_percentage())
