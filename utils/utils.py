@@ -3,7 +3,7 @@ import requests
 from utils.kraken_auth import handle_kraken_auth
 
 def get_current_balance(coin):
-    coin = 'KAS' if coin.lower() == 'kaspa' else 'XXBT'
+    coin = 'KAS' if coin.lower() == 'kaspa' else 'XBT.F'
 
     urlpath = "/0/private/Balance"
 
