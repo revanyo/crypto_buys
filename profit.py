@@ -21,4 +21,4 @@ def calculate_and_save_profit():
 
     df.to_excel(filename, index=False)
 
-calculate_allocation_percentage()
+calculate_and_save_profit()
