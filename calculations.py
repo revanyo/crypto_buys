@@ -125,6 +125,7 @@ def calculate_allocation_percentage():
     bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
     market_value = kaspa_market_value + bitcoin_market_value
     kaspa_allocation_percent = kaspa_market_value/market_value
+    print()
     return f'Portfolio Allocation: Kaspa: {round((kaspa_allocation_percent*100),2)}%, Bitcoin: {round(((1-kaspa_allocation_percent)*100),2)}%'
 
 def calculate_portfolio_minus_loan():
@@ -137,10 +138,12 @@ def calculate_portfolio_minus_loan():
     print()
     return f'Total Portfolio Net Worth: {round(market_value,2)} - {loans} = {round(market_value-loans,2)}'
 
-print(calulate_profit("kaspa"))
-print(calculate_total_profit("kaspa"))
-print(calulate_profit("bitcoin"))
-print(calculate_total_profit("bitcoin"))
-print(calculate_portfolio_minus_loan())
+def base_profit():
+    print(calulate_profit("kaspa"))
+    print(calculate_total_profit("kaspa"))
+    print(calulate_profit("bitcoin"))
+    print(calculate_total_profit("bitcoin"))
+    print(calculate_portfolio_minus_loan())
+    print(calculate_allocation_percentage())
 
-print(calculate_allocation_percentage())
+base_profit()
