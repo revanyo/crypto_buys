@@ -146,4 +146,4 @@ def base_profit():
     print(calculate_portfolio_minus_loan())
     print(calculate_allocation_percentage())
 
-print(calculate_costs('kaspa'))
+base_profit()
