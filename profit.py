@@ -1,4 +1,7 @@
-from calculations import *
+from calculations import calculate_total_coins_owned, get_current_price, get_loan_amount
+import pandas as pd
+import datetime
+from data.loan_data import loan_one, loan_two
 
 def calculate_and_save_profit():
     filename = "data/profit.xlsx"

@@ -146,4 +146,5 @@ def base_profit():
     print(calculate_portfolio_minus_loan())
     print(calculate_allocation_percentage())
 
-base_profit()
+if __name__ == "__main__":
+    base_profit()
