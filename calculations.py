@@ -94,7 +94,6 @@ def calculate_costs(coin):
     total_cost = df["Cost"].sum()
     return total_cost
 
-
 def calulate_profit(coin):
     coins = calculate_new_total_coins(coin)
     cost = calculate_costs(coin)
@@ -103,7 +102,6 @@ def calulate_profit(coin):
     current_value = coins * current_price
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
-    print()
     return f'Profit: ${profit}, ({percentage}%) --{coin} Price: ${round(current_price,5)}'
 
 def calculate_total_profit(coin):
@@ -115,36 +113,55 @@ def calculate_total_profit(coin):
     market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
-    print()
     return f"Total profit: ${round(total_profit, 2)}, ({percentage}%) --{coin}"
 
 def calculate_allocation_percentage():
-    Kaspa_coins = calculate_total_coins_owned("kaspa")
+    kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
-    kaspa_market_value=Kaspa_coins*get_current_price("kaspa")
-    bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
-    market_value = kaspa_market_value + bitcoin_market_value
-    kaspa_allocation_percent = kaspa_market_value/market_value
-    print()
-    return f'Portfolio Allocation: Kaspa: {round((kaspa_allocation_percent*100),2)}%, Bitcoin: {round(((1-kaspa_allocation_percent)*100),2)}%'
+
+    kaspa_market_value = kaspa_coins * get_current_price("kaspa")
+    bitcoin_market_value = bitcoin_coins * get_current_price("bitcoin")
+    total_market_value = kaspa_market_value + bitcoin_market_value
+
+    kaspa_allocation = kaspa_market_value / total_market_value
+    bitcoin_allocation = 1 - kaspa_allocation
+
+    return {
+        "kaspa": kaspa_allocation,
+        "bitcoin": bitcoin_allocation,
+    }
+
 
 def calculate_portfolio_minus_loan():
-    Kaspa_coins = calculate_total_coins_owned("kaspa")
+    kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
     loans = get_loan_amount(loan_one) + get_loan_amount(loan_two)
-    kaspa_market_value=Kaspa_coins*get_current_price("kaspa")
-    bitcoin_market_value=bitcoin_coins*get_current_price("bitcoin")
-    market_value = kaspa_market_value + bitcoin_market_value
-    print()
-    return f'Total Portfolio Net Worth: {round(market_value,2)} - {loans} = {round(market_value-loans,2)}'
+
+    kaspa_market_value = kaspa_coins * get_current_price("kaspa")
+    bitcoin_market_value = bitcoin_coins * get_current_price("bitcoin")
+    total_market_value = kaspa_market_value + bitcoin_market_value
+
+    return {
+        "total": total_market_value,
+        "loans": loans,
+        "net": total_market_value - loans,
+    }
 
 def base_profit():
     print(calulate_profit("kaspa"))
     print(calculate_total_profit("kaspa"))
     print(calulate_profit("bitcoin"))
     print(calculate_total_profit("bitcoin"))
-    print(calculate_portfolio_minus_loan())
-    print(calculate_allocation_percentage())
+
+    portfolio = calculate_portfolio_minus_loan()
+    print(f'Total Portfolio Net Worth: {round(portfolio["total"],2)} - {portfolio["loans"]} = {round(portfolio["net"],2)}')
+
+    allocation = calculate_allocation_percentage()
+    print(
+        f'Portfolio Allocation: '
+        f'Kaspa: {round(allocation["kaspa"]*100, 2)}%, '
+        f'Bitcoin: {round(allocation["bitcoin"]*100, 2)}%'
+    )
 
 if __name__ == "__main__":
     base_profit()

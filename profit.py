@@ -1,4 +1,4 @@
-from calculations import calculate_total_coins_owned, get_current_price, get_loan_amount
+from calculations import calculate_allocation_percentage, calculate_total_coins_owned, get_current_price, get_loan_amount
 import pandas as pd
 import datetime
 from data.loan_data import loan_one, loan_two
@@ -24,4 +24,21 @@ def calculate_and_save_profit():
 
     df.to_excel(filename, index=False)
 
+def calculate_and_save_allocation_percentage():
+    filename = "data/profit.xlsx"
+    df = pd.read_excel(filename, sheet_name="Sheet2")
+ 
+    now = datetime.datetime.now()
+    date = now.strftime("%m/%d/%Y")
+
+    allocation = calculate_allocation_percentage()
+
+    new_row = {"Date": date,  "Bitcoin Allocation": allocation['bitcoin'], "Kaspa Allocation": allocation['kaspa']}
+    print(new_row)
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+    with pd.ExcelWriter(filename, mode="a", engine="openpyxl", if_sheet_exists="replace") as writer:
+        df.to_excel(writer, sheet_name="Sheet2", index=False)
+
 calculate_and_save_profit()
+calculate_and_save_allocation_percentage()
