@@ -56,6 +56,5 @@ def calculate_and_save_allocation_percentage():
 
     wb.save(filename)
 
-
 calculate_and_save_profit()
 calculate_and_save_allocation_percentage()

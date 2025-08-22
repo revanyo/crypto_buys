@@ -149,11 +149,21 @@ def calculate_portfolio_minus_loan():
     }
 
 def base_profit():
-    
-    filename = "data/profit.xlsx"
-    xl = pd.ExcelFile(filename)
-    print(xl.sheet_names)
-        
+    git_pull()
+    print(calulate_profit("kaspa"))
+    print(calculate_total_profit("kaspa"))
+    print(calulate_profit("bitcoin"))
+    print(calculate_total_profit("bitcoin"))
+
+    portfolio = calculate_portfolio_minus_loan()
+    print(f'Total Portfolio Net Worth: {round(portfolio["total"],2)} - {portfolio["loans"]} = {round(portfolio["net"],2)}')
+
+    allocation = calculate_allocation_percentage()
+    print(
+        f'Portfolio Allocation: '
+        f'Kaspa: {round(allocation["kaspa"]*100, 2)}%, '
+        f'Bitcoin: {round(allocation["bitcoin"]*100, 2)}%'
+    )
 
 if __name__ == "__main__":
     base_profit()
