@@ -1,3 +1,4 @@
+from openpyxl import load_workbook
 from calculations import (
     calculate_allocation_percentage,
     calculate_total_coins_owned,
@@ -33,26 +34,28 @@ def calculate_and_save_profit():
 
 def calculate_and_save_allocation_percentage():
     filename = "data/profit.xlsx"
-    df = pd.read_excel(filename, sheet_name="Sheet2")
+
+    # Load workbook and sheet
+    wb = load_workbook(filename)
+    if "Sheet2" in wb.sheetnames:
+        ws = wb["Sheet2"]
+    else:
+        ws = wb.create_sheet("Sheet2")
 
     now = datetime.datetime.now()
     date = now.strftime("%m/%d/%Y")
-
     allocation = calculate_allocation_percentage()
 
-    new_row = {
-        "Date": date,
-        "Bitcoin Allocation": allocation["bitcoin"],
-        "Kaspa Allocation": allocation["kaspa"],
-    }
-    print(new_row)
-    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    # Find next empty row
+    next_row = ws.max_row + 1
 
-    with pd.ExcelWriter(
-        filename, mode="a", engine="openpyxl", if_sheet_exists="replace"
-    ) as writer:
-        df.to_excel(writer, sheet_name="Sheet2", index=False)
+    # Write new row
+    ws.cell(row=next_row, column=1, value=date)
+    ws.cell(row=next_row, column=2, value=allocation["bitcoin"])
+    ws.cell(row=next_row, column=3, value=allocation["kaspa"])
+
+    wb.save(filename)
 
 
 calculate_and_save_profit()
-# calculate_and_save_allocation_percentage()
+calculate_and_save_allocation_percentage()
