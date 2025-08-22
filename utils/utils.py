@@ -1,6 +1,10 @@
+import subprocess
 import time
 import requests
 from utils.kraken_auth import handle_kraken_auth
+
+def git_pull():
+    subprocess.run(["git", "pull"], check=True)
 
 def get_current_balance(coin):
     coin = 'KAS' if coin.lower() == 'kaspa' else 'XBT.F'

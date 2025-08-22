@@ -4,6 +4,7 @@ from matplotlib.dates import relativedelta
 import pandas as pd
 import requests
 from data.loan_data import loan_one, loan_two
+from utils.utils import git_pull
 
 def get_loan_amount(loan):
     start_date = datetime.strptime(loan["start"], "%Y-%m-%d")
@@ -148,6 +149,7 @@ def calculate_portfolio_minus_loan():
     }
 
 def base_profit():
+    git_pull()
     print(calulate_profit("kaspa"))
     print(calculate_total_profit("kaspa"))
     print(calulate_profit("bitcoin"))
