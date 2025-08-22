@@ -55,4 +55,4 @@ def calculate_and_save_allocation_percentage():
 
 
 calculate_and_save_profit()
-calculate_and_save_allocation_percentage()
+# calculate_and_save_allocation_percentage()
