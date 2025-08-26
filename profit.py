@@ -46,8 +46,10 @@ def calculate_and_save_allocation_percentage():
     date = now.strftime("%m/%d/%Y")
     allocation = calculate_allocation_percentage()
 
-    # Find next empty row
-    next_row = ws.max_row + 1
+    # Find next completely empty row
+    next_row = 1
+    while any(ws.cell(row=next_row, column=col).value for col in range(1, 4)):
+        next_row += 1
 
     # Write new row
     ws.cell(row=next_row, column=1, value=date)

@@ -95,6 +95,13 @@ def calculate_costs(coin):
     total_cost = df["Cost"].sum()
     return total_cost
 
+def calcululate_current_value_new_coins(coin):
+    coins = calculate_new_total_coins(coin)
+    current_price = get_current_price(coin)
+
+    current_value = coins * current_price
+    return current_value
+
 def calulate_profit(coin):
     coins = calculate_new_total_coins(coin)
     cost = calculate_costs(coin)
