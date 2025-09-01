@@ -26,7 +26,6 @@ def get_loan_amount(loan):
 
     return round(balance, 2)
 
-
 def calculate_total_average(coin):
     with open("data/average.json") as f:
         data = json.load(f)[coin]
