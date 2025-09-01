@@ -33,30 +33,19 @@ def calculate_and_save_profit():
 
 
 def calculate_and_save_allocation_percentage():
-    filename = "data/profit.xlsx"
-
-    # Load workbook and sheet
-    wb = load_workbook(filename)
-    if "Sheet2" in wb.sheetnames:
-        ws = wb["Sheet2"]
-    else:
-        ws = wb.create_sheet("Sheet2")
-
+    filename = "data/allocation.xlsx"
+    df = pd.read_excel(filename)
+    
     now = datetime.datetime.now()
     date = now.strftime("%m/%d/%Y")
     allocation = calculate_allocation_percentage()
 
-    # Find next completely empty row
-    next_row = 1
-    while any(ws.cell(row=next_row, column=col).value for col in range(1, 4)):
-        next_row += 1
+    new_row = {"Date": date, "BTC": allocation["bitcoin"], "KAS": allocation["kaspa"]}
+    print(new_row)
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-    # Write new row
-    ws.cell(row=next_row, column=1, value=date)
-    ws.cell(row=next_row, column=2, value=allocation["bitcoin"])
-    ws.cell(row=next_row, column=3, value=allocation["kaspa"])
+    df.to_excel(filename, index=False)
 
-    wb.save(filename)
 
 calculate_and_save_profit()
 calculate_and_save_allocation_percentage()
