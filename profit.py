@@ -31,7 +31,6 @@ def calculate_and_save_profit():
 
     df.to_excel(filename, index=False)
 
-
 def calculate_and_save_allocation_percentage():
     filename = "data/allocation.xlsx"
     df = pd.read_excel(filename)
@@ -45,7 +44,6 @@ def calculate_and_save_allocation_percentage():
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
     df.to_excel(filename, index=False)
-
 
 calculate_and_save_profit()
 calculate_and_save_allocation_percentage()
