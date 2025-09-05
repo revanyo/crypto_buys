@@ -13,11 +13,11 @@ def kaspa_buy():
     if(coins_bought < 10):
         sys.exit()
 
-    last_price = 10 / coins_bought
+    last_price = 50/ coins_bought
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
 
-    new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 10}
+    new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 25}
     print(new_row)
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
