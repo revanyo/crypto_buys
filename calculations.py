@@ -142,7 +142,7 @@ def calculate_allocation_percentage():
 def calculate_portfolio_minus_loan():
     kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
-    loans = (get_loan_amount(loan_two) -1007)
+    loans = get_loan_amount(loan_two) 
 
     kaspa_market_value = kaspa_coins * get_current_price("kaspa")
     bitcoin_market_value = bitcoin_coins * get_current_price("bitcoin")

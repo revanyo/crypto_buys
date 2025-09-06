@@ -6,8 +6,8 @@ loan_one = {
 }
 
 loan_two = {
-    "principal": 6126.69,
+    "principal": 4538.55,
     "rate": 8.03,
-    "payment": 142,
-    "start": "2025-07-14"
+    "payment": 678,
+    "start": "2025-08-22"
 }
