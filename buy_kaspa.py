@@ -13,7 +13,7 @@ def kaspa_buy():
     if(coins_bought < 10):
         sys.exit()
 
-    last_price = 25 / coins_bought
+    last_price = 24.75 / coins_bought
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
 
