@@ -7,7 +7,7 @@ def git_pull():
     subprocess.run(["git", "pull"], check=True)
 
 def get_current_balance(coin):
-    coin = 'KAS' if coin.lower() == 'kaspa' else 'XBT.F'
+    coin = 'KAS' if coin.lower() == 'kaspa' else 'XBT.B'
 
     urlpath = "/0/private/Balance"
 
@@ -27,8 +27,7 @@ def get_current_balance(coin):
 
     response = requests.post(api_url, headers=headers, data=payload)
     current_balance = (float)(response.json()['result'][coin])
-    allocated_balance = (float)(get_allocated_balance(coin))
-    return current_balance + allocated_balance
+    return current_balance
 
 def get_allocated_balance(coin):
     if coin == 'KAS':
