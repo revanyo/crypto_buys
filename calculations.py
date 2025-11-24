@@ -117,7 +117,7 @@ def calculate_total_profit(coin):
         old_average_price = data["avergae_buy_price"]
     cost_basis = (calculate_costs(coin)) + (old_coins*old_average_price)
     market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
-    total_profit = market_value - cost_basis
+    total_profit = round(market_value - cost_basis, 2)
     percentage = round((total_profit / cost_basis) * 100, 2)
     return total_profit,percentage
 
@@ -153,13 +153,12 @@ def calculate_portfolio_minus_loan():
 
 def base_profit():
     git_pull()
-    print(calulate_profit("kaspa"))
-    print(calculate_total_profit("kaspa"))
-    print(calulate_profit("bitcoin"))
-    print(calculate_total_profit("bitcoin"))
+    print(f'Kaspa {calulate_profit("kaspa")[0]} USD, {calulate_profit("kaspa")[1]}%')
+    print(f'Kaspa Total {calculate_total_profit("kaspa")[0]} USD, {calculate_total_profit("kaspa")[1]}%')
+    print(f'Bitcoin {calulate_profit("bitcoin")[0]} USD, {calulate_profit("bitcoin")[1]}%')
 
     portfolio = calculate_portfolio_minus_loan()
-    print(f'Total Portfolio Net Worth: {round(portfolio["total"],2)} - {portfolio["loans"]} = {round(portfolio["net"],2)}')
+    print(f'Total Portfolio Net Worth: {round(portfolio["total"],2)}')
 
     allocation = calculate_allocation_percentage()
     print(
