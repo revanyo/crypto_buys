@@ -1,49 +1,65 @@
+import os
 from openpyxl import load_workbook
 from calculations import (
     calculate_allocation_percentage,
     calculate_total_coins_owned,
+    calculate_total_profit,
+    calulate_profit,
     get_current_price,
-    get_loan_amount,
 )
 import pandas as pd
 import datetime
-from data.loan_data import loan_one, loan_two
 
+def save_profit_data():
+    filename = "data/profit_data.xlsx"
+    columns = [
+        "Date",
+        "Portfolio Value(USD)",
+        "BTC %",
+        "KAS %",
+        "KAS Profit(USD)",
+        "KAS Profit(%)",
+        "KAS Total Profit(USD)",
+        "KAS Total Profit(%)",
+        "BTC Profit(USD)",
+        "BTC Profit(%)"
+    ]
 
-def calculate_and_save_profit():
-    filename = "data/profit.xlsx"
-    df = pd.read_excel(filename)
+    if os.path.exists(filename):
+        df = pd.read_excel(filename)
+    else:
+        df = pd.DataFrame(columns=columns)
 
     now = datetime.datetime.now()
     date = now.strftime("%m/%d/%Y")
+    kaspa_profit = calulate_profit('kaspa')
+    btc_profit = calulate_profit('bitcoin')
+    kaspa_total_profit = calculate_total_profit('kaspa')
+    allocation = calculate_allocation_percentage()
+    new_row = {
+    "Date": date,
+    "Portfolio Value(USD)": calculate_portfolio(),
+    "BTC %": allocation["bitcoin"],
+    "KAS %": allocation["kaspa"],
+    "KAS Profit(USD)": kaspa_profit[0],
+    "KAS Profit(%)": kaspa_profit[1],
+    "KAS Total Profit(USD)": kaspa_total_profit[0],
+    "KAS Total Profit(%)": kaspa_total_profit[1],
+    "BTC Profit(USD)": btc_profit[0],
+    "BTC Profit(%)": btc_profit[1]
+}
+    print(new_row)
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
+    df.to_excel(filename, index=False)
+
+def calculate_portfolio():
     Kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
-    loans = get_loan_amount(loan_two)
     kaspa_market_value = Kaspa_coins * get_current_price("kaspa")
     bitcoin_market_value = bitcoin_coins * get_current_price("bitcoin")
     market_value = kaspa_market_value + bitcoin_market_value
-    profit = round(market_value - loans, 2)
+    portfolio = round(market_value, 2)
+    return portfolio
 
-    new_row = {"Date": date, "Profit": profit}
-    print(new_row)
-    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-
-    df.to_excel(filename, index=False)
-
-def calculate_and_save_allocation_percentage():
-    filename = "data/allocation.xlsx"
-    df = pd.read_excel(filename)
-    
-    now = datetime.datetime.now()
-    date = now.strftime("%m/%d/%Y")
-    allocation = calculate_allocation_percentage()
-
-    new_row = {"Date": date, "BTC": allocation["bitcoin"], "KAS": allocation["kaspa"]}
-    print(new_row)
-    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-
-    df.to_excel(filename, index=False)
-
-calculate_and_save_profit()
-calculate_and_save_allocation_percentage()
+save_profit_data()

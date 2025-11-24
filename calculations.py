@@ -3,7 +3,6 @@ import json
 from matplotlib.dates import relativedelta
 import pandas as pd
 import requests
-from data.loan_data import loan_one, loan_two
 from utils.utils import git_pull
 
 def get_loan_amount(loan):
@@ -109,7 +108,7 @@ def calulate_profit(coin):
     current_value = coins * current_price
     profit = round((current_value - cost),2)
     percentage = round((profit/cost*100),2)
-    return f'Profit: ${profit}, ({percentage}%) --{coin} Price: ${round(current_price,5)}'
+    return profit, percentage
 
 def calculate_total_profit(coin):
     with open("data/average.json") as f:
@@ -120,7 +119,7 @@ def calculate_total_profit(coin):
     market_value = (old_coins + calculate_new_total_coins(coin))*get_current_price(coin)
     total_profit = market_value - cost_basis
     percentage = round((total_profit / cost_basis) * 100, 2)
-    return f"Total profit: ${round(total_profit, 2)}, ({percentage}%) --{coin}"
+    return total_profit,percentage
 
 def calculate_allocation_percentage():
     kaspa_coins = calculate_total_coins_owned("kaspa")
@@ -142,7 +141,6 @@ def calculate_allocation_percentage():
 def calculate_portfolio_minus_loan():
     kaspa_coins = calculate_total_coins_owned("kaspa")
     bitcoin_coins = calculate_total_coins_owned("bitcoin")
-    loans = get_loan_amount(loan_two) -350 -288
 
     kaspa_market_value = kaspa_coins * get_current_price("kaspa")
     bitcoin_market_value = bitcoin_coins * get_current_price("bitcoin")
@@ -150,8 +148,7 @@ def calculate_portfolio_minus_loan():
 
     return {
         "total": total_market_value,
-        "loans": loans,
-        "net": total_market_value - loans,
+        "net": total_market_value
     }
 
 def base_profit():
