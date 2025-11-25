@@ -35,7 +35,6 @@ jobs:
           CURRENT_DATE=$(date +'%Y-%m-%d')
           git config --global user.name "github-actions"
           git config --global user.email "50283360+revanyo@users.noreply.github.com"
-          git add data/allocation.xlsx
-          git add data/profit.xlsx
+          git add data/profit_data.xlsx
           git commit -m "Update profit files after running on $CURRENT_DATE"
           git push
