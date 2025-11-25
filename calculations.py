@@ -153,6 +153,7 @@ def calculate_portfolio_minus_loan():
 
 def base_profit():
     git_pull()
+    print(f"Kaspa Price: ${get_current_price('kaspa')} Bitcoin Price: ${get_current_price('bitcoin')}")
     print(f'Kaspa {calulate_profit("kaspa")[0]} USD, {calulate_profit("kaspa")[1]}%')
     print(f'Kaspa Total {calculate_total_profit("kaspa")[0]} USD, {calculate_total_profit("kaspa")[1]}%')
     print(f'Bitcoin {calulate_profit("bitcoin")[0]} USD, {calulate_profit("bitcoin")[1]}%')
