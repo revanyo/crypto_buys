@@ -85,6 +85,8 @@ def get_current_price(coin):
     last_price = requests.request("GET", url, headers=headers).json()["result"][pair][
         "c"
     ][0]
+    # if coin == "kaspa":
+    #     return .125
     return float(last_price)
     
 def calculate_costs(coin):
