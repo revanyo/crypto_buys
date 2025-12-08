@@ -7,8 +7,8 @@ def git_pull():
     subprocess.run(["git", "pull"], check=True)
 
 def get_current_balance(coin):
-    coin = 'KAS' if coin.lower() == 'kaspa' else 'XBT.B'
-
+    if coin.lower() == 'kaspa':
+        coin = 'KAS'
     urlpath = "/0/private/Balance"
 
     payload = {
@@ -26,6 +26,10 @@ def get_current_balance(coin):
     }
 
     response = requests.post(api_url, headers=headers, data=payload)
+    if(coin == "bitcoin"):
+        xbtb = (float)(response.json()['result']['XBT.B'])
+        xxbt = (float)(response.json()['result']['XXBT'])
+        return xxbt + xbtb
     current_balance = (float)(response.json()['result'][coin])
     return current_balance
 
@@ -56,7 +60,7 @@ def get_allocated_balance(coin):
 
 def allocate_earn_funds():
     urlpath = "/0/private/Earn/Allocate"
-    allocation_amount = get_current_balance('BTC') - float(get_allocated_balance('BTC'))
+    allocation_amount = get_current_balance('bitcoin') - float(get_allocated_balance('BTC'))
     payload = {
         "nonce": str(int(time.time() * 1000)),
         "amount": allocation_amount,
