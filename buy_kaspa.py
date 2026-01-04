@@ -41,4 +41,4 @@ def kaspa_buy():
 
 
 kaspa_buy()
-withdraw_asset("KAS", 100)
+# withdraw_asset("KAS", 100)
