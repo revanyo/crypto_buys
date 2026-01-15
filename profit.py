@@ -2,6 +2,7 @@ import os
 from openpyxl import load_workbook
 from calculations import (
     calculate_allocation_percentage,
+    calculate_combined_total_profit,
     calculate_total_coins_owned,
     calculate_total_profit,
     calulate_profit,
@@ -9,6 +10,7 @@ from calculations import (
 )
 import pandas as pd
 import datetime
+
 
 def save_profit_data():
     filename = "data/profit_data.xlsx"
@@ -22,7 +24,9 @@ def save_profit_data():
         "KAS Total Profit(USD)",
         "KAS Total Profit(%)",
         "BTC Profit(USD)",
-        "BTC Profit(%)"
+        "BTC Profit(%)",
+        "Combined Total Profit(USD)",
+        "Combined Total Profit(%)",
     ]
 
     if os.path.exists(filename):
@@ -32,26 +36,31 @@ def save_profit_data():
 
     now = datetime.datetime.now()
     date = now.strftime("%m/%d/%Y")
-    kaspa_profit = calulate_profit('kaspa')
-    btc_profit = calulate_profit('bitcoin')
-    kaspa_total_profit = calculate_total_profit('kaspa')
+    kaspa_profit = calulate_profit("kaspa")
+    btc_profit = calulate_profit("bitcoin")
+    kaspa_total_profit = calculate_total_profit("kaspa")
+    btc_total_profit = calculate_total_profit("bitcoin")
+    combined_total_profit = calculate_combined_total_profit()
     allocation = calculate_allocation_percentage()
     new_row = {
-    "Date": date,
-    "Portfolio Value(USD)": calculate_portfolio(),
-    "BTC %": allocation["bitcoin"],
-    "KAS %": allocation["kaspa"],
-    "KAS Profit(USD)": kaspa_profit[0],
-    "KAS Profit(%)": kaspa_profit[1],
-    "KAS Total Profit(USD)": kaspa_total_profit[0],
-    "KAS Total Profit(%)": kaspa_total_profit[1],
-    "BTC Profit(USD)": btc_profit[0],
-    "BTC Profit(%)": btc_profit[1]
-}
+        "Date": date,
+        "Portfolio Value(USD)": calculate_portfolio(),
+        "BTC %": allocation["bitcoin"],
+        "KAS %": allocation["kaspa"],
+        "KAS Profit(USD)": kaspa_profit[0],
+        "KAS Profit(%)": kaspa_profit[1],
+        "KAS Total Profit(USD)": kaspa_total_profit[0],
+        "KAS Total Profit(%)": kaspa_total_profit[1],
+        "BTC Profit(USD)": btc_profit[0],
+        "BTC Profit(%)": btc_profit[1],
+        "Combined Total Profit(USD)": combined_total_profit[0],
+        "Combined Total Profit(%)": combined_total_profit[1],
+    }
     print(new_row)
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
     df.to_excel(filename, index=False)
+
 
 def calculate_portfolio():
     Kaspa_coins = calculate_total_coins_owned("kaspa")
@@ -61,5 +70,6 @@ def calculate_portfolio():
     market_value = kaspa_market_value + bitcoin_market_value
     portfolio = round(market_value, 2)
     return portfolio
+
 
 save_profit_data()
