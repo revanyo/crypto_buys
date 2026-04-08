@@ -3,7 +3,10 @@ import json
 from matplotlib.dates import relativedelta
 import pandas as pd
 import requests
+import urllib3
 from utils.utils import git_pull
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def get_loan_amount(loan):
@@ -43,7 +46,7 @@ def calculate_total_average(coin):
         old_coins + new_coins
     )
 
-    return f"New Average Price: {weighted_avg}"
+    return weighted_avg
 
 
 def calculate_total_coins_owned(coin):
@@ -85,9 +88,9 @@ def get_current_price(coin):
         else ("https://api.kraken.com/0/public/Ticker?pair=BTCUSD", "XXBTZUSD")
     )
 
-    last_price = requests.request("GET", url, headers=headers).json()["result"][pair][
-        "c"
-    ][0]
+    last_price = requests.request("GET", url, headers=headers, verify=False).json()[
+        "result"
+    ][pair]["c"][0]
     # if coin == "kaspa":
     #     return .125
     return float(last_price)
