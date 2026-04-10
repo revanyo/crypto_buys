@@ -14,6 +14,24 @@ import pandas as pd
 import datetime
 
 
+def auto_fit_columns(filename):
+    workbook = load_workbook(filename)
+    worksheet = workbook.active
+
+    for column_cells in worksheet.columns:
+        max_length = 0
+        column_letter = column_cells[0].column_letter
+
+        for cell in column_cells:
+            cell_value = "" if cell.value is None else str(cell.value)
+            if len(cell_value) > max_length:
+                max_length = len(cell_value)
+
+        worksheet.column_dimensions[column_letter].width = max_length + 2
+
+    workbook.save(filename)
+
+
 def save_profit_data():
     filename = "data/profit_data.xlsx"
     columns = [
@@ -71,6 +89,7 @@ def save_profit_data():
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
     df.to_excel(filename, index=False)
+    auto_fit_columns(filename)
 
 
 def calculate_portfolio():
