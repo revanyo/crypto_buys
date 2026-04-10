@@ -3,7 +3,9 @@ from openpyxl import load_workbook
 from calculations import (
     calculate_allocation_percentage,
     calculate_combined_total_profit,
+    calculate_new_average,
     calculate_total_coins_owned,
+    calculate_total_average,
     calculate_total_profit,
     calulate_profit,
     get_current_price,
@@ -19,6 +21,9 @@ def save_profit_data():
         "Portfolio Value(USD)",
         "BTC %",
         "KAS %",
+        "KAS New Average Buy Price",
+        "KAS Total Average Buy Price",
+        "BTC Total Average Buy Price",
         "KAS Profit(USD)",
         "KAS Profit(%)",
         "KAS Total Profit(USD)",
@@ -36,6 +41,9 @@ def save_profit_data():
 
     now = datetime.datetime.now()
     date = now.strftime("%m/%d/%Y")
+    kaspa_new_average = calculate_new_average("kaspa")
+    kaspa_total_average = calculate_total_average("kaspa")
+    bitcoin_total_average = calculate_total_average("bitcoin")
     kaspa_profit = calulate_profit("kaspa")
     btc_profit = calulate_profit("bitcoin")
     kaspa_total_profit = calculate_total_profit("kaspa")
@@ -47,6 +55,9 @@ def save_profit_data():
         "Portfolio Value(USD)": calculate_portfolio(),
         "BTC %": allocation["bitcoin"],
         "KAS %": allocation["kaspa"],
+        "KAS New Average Buy Price": kaspa_new_average,
+        "KAS Total Average Buy Price": kaspa_total_average,
+        "BTC Total Average Buy Price": bitcoin_total_average,
         "KAS Profit(USD)": kaspa_profit[0],
         "KAS Profit(%)": kaspa_profit[1],
         "KAS Total Profit(USD)": kaspa_total_profit[0],
