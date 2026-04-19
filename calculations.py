@@ -40,9 +40,9 @@ def calculate_total_average(coin):
     df = pd.read_excel(filename)
 
     new_coins = df["Coins"].sum()
-    new_price = df["Price"].mean()
+    new_cost = df["Cost"].sum()
 
-    weighted_avg = ((old_average_price * old_coins) + (new_price * new_coins)) / (
+    weighted_avg = ((old_average_price * old_coins) + new_cost) / (
         old_coins + new_coins
     )
 
@@ -74,7 +74,7 @@ def calculate_new_total_coins(coin):
 def calculate_new_average(coin):
     filename = f"data/{coin}_buys.xlsx"
     df = pd.read_excel(filename)
-    new_average = df["Price"].mean()
+    new_average = df["Cost"].sum() / df["Coins"].sum()
 
     return new_average
 
@@ -197,6 +197,10 @@ def base_profit():
     print(
         f"Kaspa Price: ${get_current_price('kaspa')} Bitcoin Price: ${get_current_price('bitcoin')}"
     )
+    print(
+        f'Kaspa Average Buy Price: ${calculate_total_average("kaspa")}, Kaspa Current Average Buy Price: ${calculate_new_average("kaspa")}'
+    )
+    print(f'Bitcoin Average Buy Price: ${calculate_total_average("bitcoin")}')
     print(f'Kaspa {calulate_profit("kaspa")[0]} USD, {calulate_profit("kaspa")[1]}%')
     print(
         f'Kaspa Total {calculate_total_profit("kaspa")[0]} USD, {calculate_total_profit("kaspa")[1]}%'
