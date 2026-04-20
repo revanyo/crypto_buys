@@ -198,9 +198,9 @@ def base_profit():
         f"Kaspa Price: ${get_current_price('kaspa')} Bitcoin Price: ${get_current_price('bitcoin')}"
     )
     print(
-        f'Kaspa Average Buy Price: ${calculate_total_average("kaspa")}, Kaspa Current Average Buy Price: ${calculate_new_average("kaspa")}'
+        f'Kaspa Average Buy Price: ${round(calculate_total_average("kaspa"), 4)}, Kaspa Current Average Buy Price: ${round(calculate_new_average("kaspa"), 4)}'
     )
-    print(f'Bitcoin Average Buy Price: ${calculate_total_average("bitcoin")}')
+    print(f'Bitcoin Average Buy Price: ${round(calculate_total_average("bitcoin"), 2)}')
     print(f'Kaspa {calulate_profit("kaspa")[0]} USD, {calulate_profit("kaspa")[1]}%')
     print(
         f'Kaspa Total {calculate_total_profit("kaspa")[0]} USD, {calculate_total_profit("kaspa")[1]}%'
