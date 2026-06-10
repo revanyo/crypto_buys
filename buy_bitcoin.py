@@ -24,4 +24,4 @@ def bitcoin_buy():
     df.to_excel(filename, index=False)
 
 bitcoin_buy()
-# allocate_earn_funds()
+allocate_earn_funds()
