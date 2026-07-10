@@ -13,11 +13,11 @@ def bitcoin_buy():
         print(f"Exiting due to no balance: coins bouhgt is {coins_bought}")
         sys.exit()
 
-    last_price = 49.5 / coins_bought
+    last_price = 74.25 / coins_bought
     now = datetime.datetime.now()
     buy_date = now.strftime("%m/%d/%Y")
 
-    new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 50}
+    new_row = {"Date": buy_date, "Coins": coins_bought, "Price": last_price, "Cost": 75}
     print(new_row)
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
