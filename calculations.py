@@ -92,9 +92,9 @@ def get_current_price(coin):
         "result"
     ][pair]["c"][0]
     # if coin == "kaspa":
-    #     return .075
+    #     return .5
     # if coin == "bitcoin":
-    #     return 120000
+    #     return 200000
     return float(last_price)
 
 
